@@ -67,4 +67,13 @@ module.exports = {
     });
   },
 
+  async logoutUser(req, res) {
+    return res.json(
+      {
+        auth: false,
+        token: null,
+      },
+    );
+  },
+
 };
