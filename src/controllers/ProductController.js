@@ -95,4 +95,29 @@ module.exports = {
     });
   },
 
+  async deleteProduct(req, res) {
+    const productId = req.body.id;
+
+    if (productId) {
+      const product = await Product.findOne({
+        where: {
+          id: productId,
+        },
+      });
+
+      if (product) {
+        await product.destroy();
+        return res.json({
+          success: true,
+          message: 'Produto deletado da base de dados com sucesso',
+        });
+      }
+    }
+
+    return res.json({
+      success: false,
+      message: 'Não foi possível deletar o produto, verifique se o id está correto',
+    });
+  },
+
 };
