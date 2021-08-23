@@ -2,36 +2,37 @@ const Product = require('../models/Product');
 
 module.exports = {
   async listProducts(req, res) {
-    if (!req.body) {
-      const products = await Product.findAll();
-      return res.json(products);
-    }
-    const { name, category } = req.body;
+    if (req.body.id || req.body.category) {
+      const { id, category } = req.body;
 
-    if (name && !category) {
+      if (id && !category) {
+        const products = await Product.findAll({
+          where: {
+            id,
+          },
+        });
+        return res.json(products);
+      }
+
+      if (!id && category) {
+        const products = await Product.findAll({
+          where: {
+            category,
+          },
+        });
+        return res.json(products);
+      }
+
       const products = await Product.findAll({
         where: {
-          name,
-        },
-      });
-      return res.json(products);
-    }
-
-    if (!name && category) {
-      const products = await Product.findAll({
-        where: {
+          id,
           category,
         },
       });
       return res.json(products);
     }
 
-    const products = await Product.findAll({
-      where: {
-        name,
-        category,
-      },
-    });
+    const products = await Product.findAll();
     return res.json(products);
   },
 
@@ -61,4 +62,37 @@ module.exports = {
       product,
     });
   },
+
+  async updateProduct(req, res) {
+    const {
+      id, name, category, description, image, price,
+    } = req.body;
+
+    if (id) {
+      const product = await Product.findOne({
+        where: {
+          id,
+        },
+      });
+
+      if (product) {
+        product.name = name;
+        product.category = category;
+        product.description = description;
+        product.image = image;
+        product.price = price;
+        const updatedProduct = await product.save();
+        return res.json({
+          success: true,
+          updatedProduct,
+        });
+      }
+    }
+
+    return res.json({
+      success: false,
+      message: 'É necessário fornecer o id do produto para atualiza-lo',
+    });
+  },
+
 };

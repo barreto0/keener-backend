@@ -11,5 +11,6 @@ productsRoutes.use(verifyAuth);
 
 productsRoutes.post('/register', ProductController.addProduct);
 productsRoutes.post('/', ProductController.listProducts);
+productsRoutes.put('/', ProductController.updateProduct);
 
 module.exports = productsRoutes;
