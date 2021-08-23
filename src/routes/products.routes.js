@@ -10,5 +10,6 @@ const productsRoutes = express.Router();
 productsRoutes.use(verifyAuth);
 
 productsRoutes.post('/register', ProductController.addProduct);
+productsRoutes.post('/', ProductController.listProducts);
 
 module.exports = productsRoutes;
