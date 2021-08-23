@@ -15,11 +15,8 @@ function verifyAuth(req, res, next) {
       }
       return res.status(500).json({ auth: false, message: 'Falha ao autenticar token' });
     }
-
     // savando sub no request para uso em todas as rotas que utilizam o middleware
     req.userId = decoded.sub;
-    // console.log(decoded.sub);
-    // res.json([{ message: 'autenticado' }]);
     next();
   });
 }

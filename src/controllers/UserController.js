@@ -27,7 +27,10 @@ module.exports = {
 
     const hashedPassword = await hash(password, 8);
     const user = await User.create({ name, email, password: hashedPassword });
-    return res.json(user);
+    return res.json({
+      message: 'Usuário cadastrado com sucesso',
+      user,
+    });
   },
 
   async authUser(req, res) {
