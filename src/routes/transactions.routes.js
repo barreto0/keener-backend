@@ -6,9 +6,10 @@ const TransactionController = require('../controllers/TransactionController');
 
 const verifyAuth = require('../middlewares/verifyAuth');
 
-const productsRoutes = express.Router();
-productsRoutes.use(verifyAuth);
+const transactionsRoutes = express.Router();
+transactionsRoutes.use(verifyAuth);
 
-productsRoutes.post('/register', TransactionController.createTransaction);
+transactionsRoutes.get('/', TransactionController.listTransactions);
+transactionsRoutes.post('/register', TransactionController.createTransaction);
 
-module.exports = productsRoutes;
+module.exports = transactionsRoutes;

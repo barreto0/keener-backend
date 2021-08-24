@@ -1,11 +1,51 @@
+/* eslint-disable no-unused-vars */
 const Transaction = require('../models/Transaction');
 const Product = require('../models/Product');
 
 module.exports = {
 
-  // async listTransactions(req, res) {
-  //   const { type, productId, startDate, endDate } = req.body;
-  // },
+  async listTransactions(req, res) {
+    const { type, productId } = req.query;
+
+    if (type && !productId) {
+      const transactions = await Transaction.findAll({
+        where: {
+          type,
+        },
+      });
+      return res.json({
+        transactions,
+      });
+    }
+
+    if (!type && productId) {
+      const transactions = await Transaction.findAll({
+        where: {
+          productId,
+        },
+      });
+      return res.json({
+        transactions,
+      });
+    }
+
+    if (type && productId) {
+      const transactions = await Transaction.findAll({
+        where: {
+          type,
+          productId,
+        },
+      });
+      return res.json({
+        transactions,
+      });
+    }
+
+    const transactions = await Transaction.findAll();
+    return res.json({
+      transactions,
+    });
+  },
 
   async createTransaction(req, res) {
     const { type, productId, quantity } = req.body;
