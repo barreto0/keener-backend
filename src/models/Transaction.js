@@ -5,42 +5,23 @@ const sequelize = new Sequelize(dbConfiguration);
 
 // construção model padrão do sequelize pela documentação
 
-const Product = sequelize.define('Product', {
+const Transaction = sequelize.define('Transaction', {
   // Model attributes are defined here
   id: {
     type: DataTypes.UUID,
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
   },
-  active: {
-    type: DataTypes.BOOLEAN,
+  type: {
+    type: Sequelize.STRING,
     allowNull: false,
   },
-  name: {
-    type: DataTypes.STRING,
+  productId: {
+    type: Sequelize.UUID,
     allowNull: false,
-  },
-  category: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  image: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  price: {
-    type: DataTypes.FLOAT,
-    allowNull: false,
-    validate: {
-      min: 0.0,
-    },
   },
   quantity: {
-    type: DataTypes.INTEGER,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       min: 1,
@@ -50,4 +31,4 @@ const Product = sequelize.define('Product', {
   // Other model options go here
 });
 
-module.exports = Product;
+module.exports = Transaction;

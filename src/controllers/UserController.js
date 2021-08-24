@@ -27,6 +27,7 @@ module.exports = {
 
     const hashedPassword = await hash(password, 8);
     const user = await User.create({ name, email, password: hashedPassword });
+    delete user.dataValues.password;
     return res.json({
       message: 'Usuário cadastrado com sucesso',
       user,

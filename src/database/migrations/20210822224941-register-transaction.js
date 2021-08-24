@@ -23,9 +23,6 @@ module.exports = {
       quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        validate: {
-          min: 1,
-        },
       },
       createdAt: {
         type: Sequelize.DATE,

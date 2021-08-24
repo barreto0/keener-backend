@@ -41,6 +41,8 @@ module.exports = {
       name, category, description, image, price, quantity,
     } = req.body;
 
+    const active = true;
+
     const checkProductExists = await Product.findOne({
       where: {
         name,
@@ -54,7 +56,7 @@ module.exports = {
     }
 
     const product = await Product.create({
-      name, category, description, image, price, quantity,
+      active, name, category, description, image, price, quantity,
     });
 
     return res.json({
@@ -65,7 +67,7 @@ module.exports = {
 
   async updateProduct(req, res) {
     const {
-      id, name, category, description, image, price,
+      id, active, name, category, description, image, price,
     } = req.body;
 
     if (id) {
@@ -76,6 +78,7 @@ module.exports = {
       });
 
       if (product) {
+        product.active = active;
         product.name = name;
         product.category = category;
         product.description = description;

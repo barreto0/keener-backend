@@ -12,6 +12,10 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
       },
+      active: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -38,9 +42,6 @@ module.exports = {
       quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        validate: {
-          min: 1,
-        },
       },
       createdAt: {
         type: Sequelize.DATE,
