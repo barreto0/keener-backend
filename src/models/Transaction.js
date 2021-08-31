@@ -20,6 +20,10 @@ const Transaction = sequelize.define('Transaction', {
     type: Sequelize.UUID,
     allowNull: false,
   },
+  productName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false,

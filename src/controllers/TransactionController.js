@@ -48,7 +48,9 @@ module.exports = {
   },
 
   async createTransaction(req, res) {
-    const { type, productId, quantity } = req.body;
+    const {
+      type, productId, productName, quantity,
+    } = req.body;
 
     if (productId) {
       const product = await Product.findOne({
@@ -67,7 +69,9 @@ module.exports = {
               message: 'Algo deu errado ao realizar a transação',
             });
           }
-          const transaction = await Transaction.create({ type, productId, quantity });
+          const transaction = await Transaction.create({
+            type, productId, productName, quantity,
+          });
           return res.json({
             success: true,
             transaction,
