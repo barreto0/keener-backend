@@ -59,8 +59,15 @@ module.exports = {
       if (product) {
         if (module.exports.checkValidTransaction(type, quantity, product.quantity)) {
           product.quantity = type === 'subtract' ? Number(product.quantity) - Number(quantity) : Number(product.quantity) + Number(quantity);
+          try {
+            await product.save();
+          } catch (error) {
+            return res.status(500).json({
+              success: false,
+              message: 'Algo deu errado ao realizar a transação',
+            });
+          }
           const transaction = await Transaction.create({ type, productId, quantity });
-          await product.save();
           return res.json({
             success: true,
             transaction,

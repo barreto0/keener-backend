@@ -43,7 +43,7 @@ const Product = sequelize.define('Product', {
     type: DataTypes.INTEGER,
     allowNull: false,
     validate: {
-      min: 1,
+      min: 0,
     },
   },
 }, {
