@@ -50,7 +50,7 @@ module.exports = {
     });
 
     if (checkProductExists) {
-      return res.json({
+      return res.status(401).json({
         message: 'Já existe um produto cadastrado com este nome!',
       });
     }

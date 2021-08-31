@@ -20,7 +20,7 @@ module.exports = {
     });
 
     if (checkUserExists) {
-      return res.json({
+      return res.status(400).json({
         message: 'Usuário já cadastrado!',
       });
     }
